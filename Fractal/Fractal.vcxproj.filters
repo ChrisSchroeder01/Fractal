@@ -30,6 +30,9 @@
     <ClCompile Include="Viewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OpenCL_Kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -44,5 +47,12 @@
     <ClInclude Include="Viewer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OpenCL_Kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Mandelbrot.cl" />
+    <None Include="helloWorld.cl" />
   </ItemGroup>
 </Project>

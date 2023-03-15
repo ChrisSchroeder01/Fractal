@@ -1,3 +1,4 @@
+
 #include "Controller.h"
 #include <complex>
 #include <iostream>
@@ -53,15 +54,16 @@ void kernelMat(double*** matrix, int width, int height , int** colors) {
 Controller::Controller(Model* m)
 {
 	this->m = m;
+	this->kernel = new OpenCL_Kernel();
 }
 
-void Controller::LoadImage(sf::Texture& screen)
+void Controller::LoadImg(sf::Texture& screen)
 {
 	// Get Texture Image
 	this->image = screen.copyToImage();
 }
 
-void Controller::SaveImage(sf::Texture& screen)
+void Controller::SaveImg(sf::Texture& screen)
 {
 	// Set Texture Image
 	screen.loadFromImage(this->image);
@@ -83,7 +85,7 @@ void Controller::calculateArea(int xPos, int yPos, int width, int height)
 
 void Controller::Render(int width, int height)
 {
-	LoadImage(m->frame);
+	this->LoadImg(m->frame);
 
 	double*** matrix = new double** [height];
 	for (int y = 0; y < height; y++)
@@ -107,7 +109,10 @@ void Controller::Render(int width, int height)
 		colors[y] = new int[width];
 	}
 
-	kernelMat(matrix, width, height, colors);
+	//kernelMat(matrix, width, height, colors);
+	this->kernel->Kernel(matrix, width, height, colors);
+	//this->kernel->HelloWorldTest();
+	//OpenCLKernel(matrix, width, height, colors);
 
 	for (int y = 0; y < height; y++)
 	{
@@ -143,7 +148,7 @@ void Controller::Render(int width, int height)
 		}
 	}
 
-	SaveImage(m->frame);
+	SaveImg(m->frame);
 }
 
 void Controller::Exit()

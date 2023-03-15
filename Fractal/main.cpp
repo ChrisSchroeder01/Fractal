@@ -9,7 +9,6 @@
 #include "InputManager.h"
 
 
-
 int main()
 {
     // Create the main window
@@ -42,7 +41,7 @@ int main()
 
     }
 
-    
+
     /*
 
     bool scrolling = false;

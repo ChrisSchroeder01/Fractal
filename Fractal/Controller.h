@@ -2,6 +2,8 @@
 #include "Model.h"
 #include <SFML/Graphics.hpp>
 #include "Viewer.h"
+#include "OpenCL_Kernel.h"
+
 
 class Controller
 {
@@ -9,13 +11,14 @@ private:
 	Model* m;
 	Viewer* v;
 	sf::Image image;
+	OpenCL_Kernel* kernel;
 
 public:
 
 	Controller(Model* m);
 
-	void LoadImage(sf::Texture& screen);
-	void SaveImage(sf::Texture& screen);
+	void LoadImg(sf::Texture& screen);
+	void SaveImg(sf::Texture& screen);
 	bool NeedToRedraw();
 
 	void Zoom(int direction);
