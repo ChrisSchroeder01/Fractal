@@ -1,19 +1,33 @@
-#pragma OPENCL EXTENSION cl_amd_printf : enable
+__kernel void Kernel(int width, int height, __global double* matriX, __global double* matriY, __global int* colors) {
+    //int gid = get_global_id(0);
 
-__kernel void mandelbrot(__global const double2* input, __global int width, __global int height, __global int* output, const int max_iterations)
-{
-    int gid_x = get_global_id(0);
-    int gid_y = get_global_id(1);
+    int row = get_global_id(0);
+    int col = get_global_id(1);
 
-    double2 c = input[gid_y * get_global_size(0) + gid_x];
-    double2 z = (double2)(0.0, 0.0);
-    
-    printf("hello world");
+    int index = row * height + col;
 
-    int iterations;
-    for (iterations = 0; iterations < max_iterations && length(z) < 2.0; iterations++) {
-        z = z * z + c;
+    double x = matriX[index];
+    double y = matriY[index];
+
+    double real = x;
+    double imag = y;
+
+    int iterations = 0;
+    while (iterations < 200 && real * real + imag * imag < 4)
+    {
+        double real_new = real * real - imag * imag + x;
+        double imag_new = 2 * real * imag + y;
+
+        real = real_new;
+        imag = imag_new;
+
+        iterations++;
     }
 
-    output[gid_y * get_global_size(0) + gid_x] = 1;
+    if (iterations == 200) {
+        iterations = 0;
+    }
+
+    colors[index] = iterations;
+	
 }

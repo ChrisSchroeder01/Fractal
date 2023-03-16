@@ -22,18 +22,25 @@ int mandelbrotColor(double x, double y)
 	}
 }
 
-void kernel(double* matriX, double* matriY, int size, int* colors) {
-	for (int i = 0; i < size; i++)
+void kernelXY(double* matriX, double* matriY, int width, int height, int** colors) {
+	
+	int* output = new int[width * height];
+	for (int i = 0; i < width * height; i++)
 	{
-		int x = i % 1280;
-		int y = i / 1280;
 
 		if (i==309092)
 		{
 			std::cout << "break";
 		}
 
-		colors[i] = mandelbrotColor(matriX[x], matriY[y]);
+		output[i] = mandelbrotColor(matriX[i], matriY[i]);
+	}
+
+	for (int i = 0; i < width * height; i++)
+	{
+		int x = i % width;
+		int y = i / width;
+		colors[y][x] = output[i];
 	}
 }
 
@@ -87,6 +94,9 @@ void Controller::Render(int width, int height)
 {
 	this->LoadImg(m->frame);
 
+	double* matriX = new double[width * height];
+	double* matriY = new double[width * height];
+
 	double*** matrix = new double** [height];
 	for (int y = 0; y < height; y++)
 	{
@@ -100,6 +110,10 @@ void Controller::Render(int width, int height)
 
 			matrix[y][x][0] = dx;
 			matrix[y][x][1] = dy;
+
+			int i = y * width + x;
+			matriX[i] = dx;
+			matriY[i] = dy;
 		}
 	}
 
@@ -109,10 +123,9 @@ void Controller::Render(int width, int height)
 		colors[y] = new int[width];
 	}
 
+	//kernelXY(matriX, matriY, width, height, colors);
 	//kernelMat(matrix, width, height, colors);
-	this->kernel->Kernel(matrix, width, height, colors);
-	//this->kernel->HelloWorldTest();
-	//OpenCLKernel(matrix, width, height, colors);
+	this->kernel->Kernel(matriX,matriY, width, height, colors);
 
 	for (int y = 0; y < height; y++)
 	{

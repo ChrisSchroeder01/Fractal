@@ -10,7 +10,6 @@ private:
 public:
 	OpenCL_Kernel();
 
-	void Kernel(double*** matrix, int width, int height, int** colors);
-	void HelloWorldTest();
+	void Kernel(double* matriX, double* matriY, int width, int height, int** colors);
 };
 
