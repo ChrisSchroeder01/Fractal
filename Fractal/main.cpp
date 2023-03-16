@@ -18,7 +18,7 @@ int main()
     Model* model = new Model(&window);
     Viewer* viewer = new Viewer(model);
     Controller* controller = new Controller(model);
-    InputManager* inputManager = new InputManager(controller);
+    InputManager* inputManager = new InputManager(controller, model);
 
     controller->Render(WINDOW_WIDTH, WINDOW_HEIGHT);
     // Start Loop
@@ -29,7 +29,7 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
-            inputManager->Handle(event);
+            inputManager->Handle(event, window);
         }
 
         if (controller->NeedToRedraw())
@@ -144,15 +144,7 @@ int main()
             window.draw(actionSprite);
         }
 
-        if (scrolling && lastScrolled.getElapsedTime().asSeconds() > 0.5)
-        {
-            scrolling = false;
-            c->Zoom(changeZoomBy);
-
-            std::cout << "Zoom: " << changeZoomBy << std::endl;
-
-            changeZoomBy = 0;
-        }
+        
 
         // Update the window
         window.display();

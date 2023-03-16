@@ -21,8 +21,8 @@ public:
 	void SaveImg(sf::Texture& screen);
 	bool NeedToRedraw();
 
-	void Zoom(int direction);
-	void calculateArea(int xPos, int yPos, int width, int height);
+	void Zoom(int amount);
+	void ChangeOffset(int x, int y);
 
 	void Render(int width, int height);
 

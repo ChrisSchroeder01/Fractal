@@ -20,12 +20,6 @@ public:
 	int dragxOffset;
 	int dragyOffset;
 
-	bool moving = false;
-
-	sf::Vector2f newPos, oldPos, deltaPos;
-
-
-
 	int lastxOffset;
 	int lastyOffset;
 	int lastzoom;
@@ -33,6 +27,13 @@ public:
 	int MAX_ITERAIONS = 200;
 
 	sf::RenderWindow* window;
+
+	bool scrolling = false;
+	sf::Clock lastScrolled;
+	int zoomChange = 0;
+
+	bool moving = false;
+	sf::Vector2f newPos, oldPos, deltaPos;
 
 	sf::Texture frame;
 	sf::Sprite sprite, actionSprite;

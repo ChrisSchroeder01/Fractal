@@ -79,15 +79,33 @@ void Controller::SaveImg(sf::Texture& screen)
 bool Controller::NeedToRedraw()
 {
 	// Test If Recalculation is Nessesary
-	return false;
+	int width = image.getSize().x;
+	int height = image.getSize().y;
+
+	if (//m->lastwidth == width &&
+		//m->lastheight == height &&
+		m->lastzoom == m->getZoom() &&
+		m->lastxOffset == m->getXOffset() &&
+		m->lastyOffset == m->getYOffset()) {
+		return false;
+	}
+
+	//m->lastwidth = width;
+	//m->lastheight = height;
+	m->lastxOffset = m->getXOffset();
+	m->lastyOffset = m->getYOffset();
+	m->lastzoom = m->getZoom();
+	return true;
 }
 
-void Controller::Zoom(int direction)
+void Controller::Zoom(int amount)
 {
+	m->changeZoomBy(amount);
 }
 
-void Controller::calculateArea(int xPos, int yPos, int width, int height)
+void Controller::ChangeOffset(int x, int y)
 {
+	m->changeOffsetBy(x, y);
 }
 
 void Controller::Render(int width, int height)
@@ -97,19 +115,12 @@ void Controller::Render(int width, int height)
 	double* matriX = new double[width * height];
 	double* matriY = new double[width * height];
 
-	double*** matrix = new double** [height];
 	for (int y = 0; y < height; y++)
 	{
-		matrix[y] = new double* [width];
 		for (int x = 0; x < width; x++)
 		{
-			matrix[y][x] = new double[2];
-
 			double dx = ((double)x - m->getXOffset()) / m->getZoom();
 			double dy = ((double)y - m->getYOffset()) / m->getZoom();
-
-			matrix[y][x][0] = dx;
-			matrix[y][x][1] = dy;
 
 			int i = y * width + x;
 			matriX[i] = dx;
@@ -160,6 +171,10 @@ void Controller::Render(int width, int height)
 			this->image.setPixel(x, y, color);
 		}
 	}
+
+	delete[] matriX;
+	delete[] matriY;
+	delete[] colors;
 
 	SaveImg(m->frame);
 }

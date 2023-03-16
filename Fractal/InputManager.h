@@ -5,11 +5,12 @@ class InputManager
 {
 private:
 	Controller* c;
+	Model* m;
 
 public:
 
-	InputManager(Controller* c);
+	InputManager(Controller* c, Model* m);
 
-	void Handle(sf::Event event);
+	void Handle(sf::Event event, sf::Window& window);
 };
 

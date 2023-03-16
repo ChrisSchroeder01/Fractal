@@ -2,6 +2,9 @@
 
 OpenCL_Kernel::OpenCL_Kernel()
 {
+
+
+
 }
 
 void OpenCL_Kernel::Kernel(double* matriX, double* matriY, int width, int height, int** colors)
@@ -102,4 +105,6 @@ void OpenCL_Kernel::Kernel(double* matriX, double* matriY, int width, int height
         int y = i / width;
         colors[y][x] = output_arr[i];
     }
+
+    delete output_arr;
 }
