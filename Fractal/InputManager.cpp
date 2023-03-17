@@ -42,8 +42,10 @@ void InputManager::Handle(sf::Event event, sf::Window &window)
 	default:
 		break;
 	}
+}
 
-
+void InputManager::Handle()
+{
     if (this->m->scrolling && this->m->lastScrolled.getElapsedTime().asMilliseconds() > 500)
     {
         this->m->scrolling = false;

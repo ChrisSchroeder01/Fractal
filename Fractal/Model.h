@@ -17,12 +17,9 @@ public:
 	void changeZoomBy(int amount);
 	void changeOffsetBy(int ax, int ay);
 
-	int dragxOffset;
-	int dragyOffset;
-
-	int lastxOffset;
-	int lastyOffset;
-	int lastzoom;
+	int lastxOffset = 0;
+	int lastyOffset = 0;
+	int lastzoom = 0;
 
 	int MAX_ITERAIONS = 200;
 

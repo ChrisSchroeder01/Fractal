@@ -15,7 +15,7 @@ private:
 
 public:
 
-	Controller(Model* m);
+	Controller(Model* m, Viewer* v);
 
 	void LoadImg(sf::Texture& screen);
 	void SaveImg(sf::Texture& screen);

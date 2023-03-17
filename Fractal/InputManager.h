@@ -12,5 +12,6 @@ public:
 	InputManager(Controller* c, Model* m);
 
 	void Handle(sf::Event event, sf::Window& window);
+	void Handle();
 };
 

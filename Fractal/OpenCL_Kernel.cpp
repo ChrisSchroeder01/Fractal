@@ -3,12 +3,6 @@
 OpenCL_Kernel::OpenCL_Kernel()
 {
 
-
-
-}
-
-void OpenCL_Kernel::Kernel(double* matriX, double* matriY, int width, int height, int** colors)
-{
     // Read the kernel source from a file
     std::ifstream file("Mandelbrot.cl");
     std::string kernel_source(std::istreambuf_iterator<char>(file), (std::istreambuf_iterator<char>()));
@@ -59,9 +53,13 @@ void OpenCL_Kernel::Kernel(double* matriX, double* matriY, int width, int height
         break;
     }
 
+    std::cout << std::endl;
+
     // Create a context and command queue for the device
-    cl::Context context({ device });
-    cl::CommandQueue queue(context, device);
+
+    this->context = cl::Context({ device });
+    this->queue = cl::CommandQueue({ this->context, device });
+
 
     // Create an OpenCL program from the kernel source
     cl::Program::Sources sources(1, std::make_pair(kernel_source.c_str(), kernel_source.length()));
@@ -71,7 +69,12 @@ void OpenCL_Kernel::Kernel(double* matriX, double* matriY, int width, int height
     program.build({ device });
 
     // Create an OpenCL kernel from the program
-    cl::Kernel kernel(program, "Kernel");
+    this->kernel = cl::Kernel(program, "Kernel");
+
+}
+
+void OpenCL_Kernel::Kernel(double* matriX, double* matriY, int width, int height, int** colors)
+{
 
     cl::Buffer buffer_matriX(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(double) * width * height, matriX);
     cl::Buffer buffer_matriY(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(double) * width * height, matriY);
@@ -80,7 +83,7 @@ void OpenCL_Kernel::Kernel(double* matriX, double* matriY, int width, int height
     kernel.setArg(2, buffer_matriX);
     kernel.setArg(3, buffer_matriY);
     kernel.setArg(4, buffer_colors);
-    //kernel.setArg(1, buffer_matriY);
+
     kernel.setArg(0, width);
     kernel.setArg(1, height);
     

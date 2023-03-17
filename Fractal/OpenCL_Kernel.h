@@ -6,7 +6,9 @@
 class OpenCL_Kernel
 {
 private:
-
+	cl::Context context;
+	cl::CommandQueue queue;
+	cl::Kernel kernel;
 public:
 	OpenCL_Kernel();
 

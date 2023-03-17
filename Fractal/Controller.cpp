@@ -58,9 +58,10 @@ void kernelMat(double*** matrix, int width, int height , int** colors) {
 
 
 
-Controller::Controller(Model* m)
+Controller::Controller(Model* m, Viewer* v) 
 {
 	this->m = m;
+	this->v = v;
 	this->kernel = new OpenCL_Kernel();
 }
 
