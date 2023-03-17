@@ -40,9 +40,6 @@ classDiagram
         
         + changeZoomBy(amount: int): void
         + changeOffsetBy(ax: int, ay: int): void
-        
-        + dragxOffset: int
-        + dragyOffset: int
 
         + lastxOffset: int
         + lastyOffset: int
@@ -79,7 +76,7 @@ classDiagram
         - image: Image;
         - kernel: OpenCL_Kernel*
         
-        + Controller(m: Model*)
+        + Controller(m: Model*, v: Viewer*)
 
         + LoadImg(screen: Texture&): void
         + SaveImg(screen: Texture&): void
@@ -100,6 +97,7 @@ classDiagram
         + InputManager(c: Controller*, m: Model*)
 
 	      + Handle(event: Event, window:Window&): void
+	      + Handle(): void
     }
     
     class OpenCL_Kernel{
