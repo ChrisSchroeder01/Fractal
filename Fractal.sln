@@ -7,12 +7,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fractal", "Fractal\Fractal.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Build|x64 = Build|x64
+		Build|x86 = Build|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D970AA7E-1975-44C2-A69C-B6C01910EFE2}.Build|x64.ActiveCfg = Build|x64
+		{D970AA7E-1975-44C2-A69C-B6C01910EFE2}.Build|x64.Build.0 = Build|x64
+		{D970AA7E-1975-44C2-A69C-B6C01910EFE2}.Build|x86.ActiveCfg = Build|Win32
+		{D970AA7E-1975-44C2-A69C-B6C01910EFE2}.Build|x86.Build.0 = Build|Win32
 		{D970AA7E-1975-44C2-A69C-B6C01910EFE2}.Debug|x64.ActiveCfg = Debug|x64
 		{D970AA7E-1975-44C2-A69C-B6C01910EFE2}.Debug|x64.Build.0 = Debug|x64
 		{D970AA7E-1975-44C2-A69C-B6C01910EFE2}.Debug|x86.ActiveCfg = Debug|Win32
